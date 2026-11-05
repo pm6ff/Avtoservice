@@ -1,0 +1,6 @@
+﻿build/
+build-win/
+dist/
+installer_out/
+AutoService_portable/
+AutoService-Setup.exe

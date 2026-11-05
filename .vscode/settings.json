@@ -1,0 +1,11 @@
+{
+    "files.encoding": "utf8",
+    "editor.formatOnSave": false,
+    "clangd.arguments": [
+        "--compile-commands-dir=${workspaceFolder}/build",
+        "--header-insertion=never"
+    ],
+    "files.associations": {
+        "*.h": "cpp"
+    }
+}

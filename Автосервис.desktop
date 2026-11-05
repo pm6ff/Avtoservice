@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Автосервис
+Comment=Учёт ремонтных работ и заказ-нарядов
+Exec=/home/student/Apps/AutoService/run.sh
+Icon=/home/student/Apps/AutoService/icon.png
+Terminal=false
+Categories=Office;

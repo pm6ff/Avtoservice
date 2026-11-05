@@ -1,0 +1,45 @@
+name: Build Windows exe
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: '6.8.*'
+          arch: 'win64_msvc2022_64'
+          cache: true
+
+      - name: Configure
+        run: cmake -S . -B build-win -DCMAKE_BUILD_TYPE=Release
+
+      - name: Build
+        run: cmake --build build-win --config Release --parallel
+
+      - name: Deploy Qt libraries
+        run: |
+          mkdir dist
+          copy build-win\Release\AutoService.exe dist\
+          windeployqt --release --no-translations dist\AutoService.exe
+
+      - name: Build installer (Inno Setup)
+        run: |
+          choco install innosetup -y --no-progress
+          & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" installer.iss
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: AutoService-Setup
+          path: installer_out/AutoService-Setup.exe
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: AutoService-portable
+          path: dist
